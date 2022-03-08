@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using CloudEventify.MassTransit;
 using FluentAssertions.Extensions;
 using Hypothesist;
 using MassTransit;
@@ -30,6 +31,8 @@ public class ConsumerTests : IClassFixture<RabbitMqContainer>
                 
                 cfg.ReceiveEndpoint("serviceb-request-approved", 
                     x => x.Consumer(hypothesis.AsConsumer));
+
+                cfg.UseCloudEvents();
             });
 
         await bus.StartAsync();
