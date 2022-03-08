@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\ServiceA.Publishers.Dapr\ServiceA.Publishers.Dapr.csproj" />
+      <ProjectReference Include="..\ServiceA.Stores.InMemory\ServiceA.Stores.InMemory.csproj" />
+      <ProjectReference Include="..\ServiceA\ServiceA.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Dapr.AspNetCore" Version="1.6.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Update="components\*.yml">
+        <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      </None>
+    </ItemGroup>
+
+</Project>
