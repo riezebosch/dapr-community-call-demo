@@ -1,4 +1,6 @@
-﻿using MassTransit;
+﻿using System.Net.Mime;
+using CloudEventify.MassTransit;
+using MassTransit;
 using ServiceB;
 
 var bus = Bus.Factory
@@ -8,7 +10,16 @@ var bus = Bus.Factory
         cfg.ReceiveEndpoint("serviceb-requests", x =>
         {
             x.Consumer<Consumer>();
+            x.Bind("requests");
+
+            x.UseCloudEvents()
+                .WithContentType(new ContentType("text/plain"));
         });
+        
+        cfg.Message<Approved>(x => 
+            x.SetEntityName("requests/approved"));
+
+        cfg.UseCloudEvents();
     });
 
 await bus.StartAsync();
